@@ -11,13 +11,13 @@ app.use(express.json());
 
 app.use(cors());
 app.use("/user", userController);
-app.use(authentication);
-
-app.get("/",(req,res)=>{
+app.get("/", (req, res) => {
   return res.status(200).json({
-    message:"welcome to MyHours"
-  })
-})
+    message: "welcome to MyHours",
+  });
+});
+
+app.use(authentication);
 
 app.listen(process.env.PORT, async () => {
   try {
@@ -25,7 +25,7 @@ app.listen(process.env.PORT, async () => {
     console.log("Connected to the database");
   } catch (error) {
     console.error("Unable to connect to the database. Error:", error.message);
-    process.exit(1); 
+    process.exit(1);
   }
   console.log(`Server is listening on port ${process.env.PORT}`);
 });
