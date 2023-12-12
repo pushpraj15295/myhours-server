@@ -14,8 +14,8 @@ app.use(cors());
 app.get("/", (req, res) => {
   return res.json('welcome to myhours');
 });
-app.use("/user", userController);
 app.use(authentication);
+app.use("/user", userController);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is listening on port ${process.env.PORT}`);
