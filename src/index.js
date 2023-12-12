@@ -4,6 +4,7 @@ const cors = require("cors");
 require("dotenv").config();
 
 const { connectToDatabase } = require("./config/db.js");
+connectToDatabase
 const { userController } = require("./routes/user.routes.js");
 const { authentication } = require("./middlewares/authentication.js");
 
@@ -11,21 +12,13 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/", (req, res) => {
-  return res.status(200).json({
-    message: "welcome to MyHours",
-  });
+  return res.json('welcome to myhours');
 });
 app.use("/user", userController);
 app.use(authentication);
 
-app.listen(process.env.PORT, async () => {
-  try {
-    await connectToDatabase;
-    console.log("Connected to the database");
-  } catch (error) {
-    console.error("Unable to connect to the database. Error:", error.message);
-    process.exit(1);
-  }
+app.listen(process.env.PORT, () => {
   console.log(`Server is listening on port ${process.env.PORT}`);
 });
+
 module.exports = app
