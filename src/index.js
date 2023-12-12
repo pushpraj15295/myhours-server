@@ -1,7 +1,7 @@
 const express = require("express");
 const { connection } = require("./config/db.js");
-const { userController } = require("./routes/user.routes");
-const { authentication } = require("./middlewares/authentication");
+const { userController } = require("./routes/user.routes.js");
+const { authentication } = require("./middlewares/authentication.js");
 
 require("dotenv").config();
 const cors = require("cors");
