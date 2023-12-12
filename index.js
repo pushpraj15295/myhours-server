@@ -1,31 +1,25 @@
-require("dotenv").config()
-const express = require("express")
-const {connection} = require("./config/db.js")
-const {userController} = require("./routes/user.routes")
-const {todoController} = require("./routes/todo.routes")
-const {authentication} = require("./middlewares/authentication")
-const cors = require("cors")
+const express = require("express");
+
+const { connection } = require("./config/db.js");
+const { userController } = require("./routes/user.routes");
+const { authentication } = require("./middlewares/authentication");
+
+require("dotenv").config();
+const cors = require("cors");
+
 const app = express();
-app.use(express.json())
+app.use(express.json());
 
+app.use(cors());
+app.use("/user", userController);
+app.use(authentication);
 
-// Home page
-app.get("/",(req,res)=>{
-    res.send("Welcome to home")
-})
-
-app.use(cors())
-app.use("/user",userController);
-app.use(authentication)
-app.use("/todos",todoController);
-
-app.listen(process.env.PORT,async()=>{
-     try{
-      await connection
-      console.log("Connected to db")
-     }
-     catch{
-       console.log("Unable to connect to db, Something went wrong!")
-     }
-     console.log(`Listening to ${process.env.PORT}`)
-})
+app.listen(process.env.PORT, async () => {
+  try {
+    await connection;
+    console.log("Connected to db");
+  } catch {
+    console.log("Unable to connect to db, Something went wrong!");
+  }
+  console.log(`Listening to ${process.env.PORT}`);
+});
